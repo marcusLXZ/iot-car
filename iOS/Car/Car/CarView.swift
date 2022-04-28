@@ -11,23 +11,31 @@ import SwiftUI
 struct CarView: View {
     @State var myValue: Double = 0.0
     @ObservedObject var car = Car()
-
+        var number: Double = 0.0
+        var forward: Bool = false
+        var stop: Bool = false
+        var backward: Bool = false
+        var isConnected: Bool = false
+    
     var body: some View {
         VStack{
             Spacer()
-
-            Text("MM CAR")
+//            VStack {
+//                Slider(value:$car.state.number)
+//                Text("Number: \(car.state.number)")
+//            }.padding()
+//            .disabled(!car.state.isConnected)
+            
+            Text("P.I.P 2.0")
                 .padding()
                 .frame(width:1000,height: 70)
                 .background(Color.gray)
-            Text("Car Speed: \(car.speed)")
-                .padding()
             Spacer()
             
             HStack {
     //          level 1
                 Button(action: {
-                    car.speed = 1.0
+                    car.state.number = 1
                 }) {
                     HStack {
                         Spacer()
@@ -43,7 +51,7 @@ struct CarView: View {
                 
     //          level 2
                 Button(action: {
-                    car.speed = 2.0
+                    car.state.number = 2
                 }) {
                     HStack {
                         Spacer()
@@ -58,7 +66,7 @@ struct CarView: View {
                 
     //          level 3
                 Button(action: {
-                    car.speed = 3.0
+                    car.state.number = 3
                 }) {
                     HStack {
                         Spacer()
@@ -75,7 +83,9 @@ struct CarView: View {
             VStack {
     //          forward
                 Button(action: {
-                    // Do an action or call a function
+                    car.state.forward=true
+                    car.state.backward=false
+                    car.state.stop=false
                 }) {
                     HStack {
                         Spacer()
@@ -91,7 +101,9 @@ struct CarView: View {
                 
     //          stop
                 Button(action: {
-                    // Do an action or call a function
+                    car.state.stop=true
+                    car.state.backward=false
+                    car.state.forward=false
                 }) {
                     HStack {
                         Spacer()
@@ -106,7 +118,9 @@ struct CarView: View {
                 
     //          backward
                 Button(action: {
-                    // Do an action or call a function
+                    car.state.backward=true
+                    car.state.forward=false
+                    car.state.stop=false
                 }) {
                     HStack {
                         Spacer()
@@ -118,11 +132,6 @@ struct CarView: View {
                 }
                 .frame(height: 100)
                 .foregroundColor(.blue)
-                
-//                Slider(value: $myValue)
-//                    .padding()
-//                Text("My Value: \(myValue)")
-//                    .padding()
             }
             
         }
